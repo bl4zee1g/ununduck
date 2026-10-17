@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ununduck</title>
+    <link rel="icon" href="/favicon.png" />
+    <meta name="color-scheme" content="light dark" />
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+      main {
+        max-width: 36rem;
+        padding: 1rem;
+      }
+      .row {
+        display: flex;
+        gap: 0.5rem;
+      }
+      input {
+        flex: 1;
+        font: inherit;
+        padding: 0.5rem;
+      }
+      button {
+        font: inherit;
+        padding: 0.5rem 1rem;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        margin: 1rem 0;
+      }
+      /* Use the theme's own colours; otherwise dark mode renders the text invisible. */
+      select {
+        font: inherit;
+        color: CanvasText;
+        background: Canvas;
+        border: 1px solid GrayText;
+        border-radius: 4px;
+        padding: 0.5rem;
+        min-width: 16rem;
+        max-width: 100%;
+      }
+      #status {
+        opacity: 0.7;
+        font-size: 0.9rem;
+      }
+    </style>
+    <script src="/resolve.js"></script>
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <main hidden>
+      <h1>ununduck</h1>
+      <p>
+        Heavily inspired by Theo's [unduck.link](https://unduck.link). Kagi's
+        bangs, resolved on your device. Unknown or missing bangs go to your
+        chosen search engine. Add this URL as your browser's default search
+        engine:
+      </p>
+      <div class="row">
+        <input id="url" readonly />
+        <button id="copy">Copy</button>
+      </div>
+      <div class="field">
+        <label for="engine">Search engine when no bang is used</label>
+        <select id="engine"></select>
+      </div>
+      <p id="status"></p>
+      <button id="update" hidden>Update bangs</button>
+      <p>
+        <small
+          >Searches are resolved on this device. This page is the only thing
+          that talks to the server.</small
+        >
+      </p>
+    </main>
+  </body>
+</html>

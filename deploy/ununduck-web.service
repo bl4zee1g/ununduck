@@ -1,0 +1,15 @@
+[Unit]
+Description=ununduck static server (Bun, 127.0.0.1:1338)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/data/ununduck
+Environment=PORT=1338
+ExecStart=/usr/bin/bun %h/data/ununduck/bin/serve.ts
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target
