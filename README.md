@@ -23,27 +23,7 @@ Requires `git`, `jq`, `bun`, `nginx`. Everything runs as your own user (systemd 
 Paths below assume the project is at `~/data/ununduck`.
 
 ```sh
-mkdir -p ~/.config/systemd/user
-cp deploy/ununduck-*.{service,timer} ~/.config/systemd/user/
-systemctl --user daemon-reload
-systemctl --user start ununduck-update.service   # first bangs.json
-systemctl --user enable --now ununduck-update.timer ununduck-web.service
-sudo loginctl enable-linger "$USER"              # keep units running while logged out / after reboot
+bun run <path to ununduck/bin/serve.ts>
 ```
 
-The units assume Bun at `/usr/bin/bun`; change `ExecStart` in `ununduck-web.service` if yours
-lives elsewhere (`command -v bun`).
-
-nginx only proxies, so it needs no access to your home directory. Edit `server_name` and the
-certificate paths in `deploy/nginx.conf` first. On nginx < 1.25.1 drop `http2 on;` and use
-`listen 443 ssl http2;`.
-
-```sh
-sudo cp deploy/nginx.conf /etc/nginx/conf.d/ununduck.conf
-sudo nginx -t && sudo systemctl reload nginx
-```
-
-Service workers need HTTPS. Logs: `journalctl --user -u ununduck-web -u ununduck-update`.
-
-Set `https://search.example.com/?q=%s` as the browser's default search engine, then open
-`https://search.example.com/` once on each device to install the worker.
+Now just check the site, it tells you what to set as your default search engine :)
